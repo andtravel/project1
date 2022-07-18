@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('test', function () {
-  return view('test');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');
+
+Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('article.show');
+
+Route::get('/articles/tag/{tag}', [ArticleController::class, 'allByTag'])->name('article.tag');
